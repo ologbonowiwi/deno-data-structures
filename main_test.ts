@@ -92,5 +92,34 @@ Deno.test("SinglyLinkedList", async (t) => {
         console.log("🚀 ~ awaitt.step ~ list:", list)
       })
     });
+  });
+
+  await t.step("should be able to shift values", async (t) => {
+    const list = new SinglyLinkedList<number>()
+
+    await t.step("should return null if the list is empty", () => {
+      assertEquals(list.shift(), null)
+    })
+
+    await t.step("should be the first item on the list", () => {
+      for (let i = 1; i <= 5; i++) {
+        list.push(i)
+      }
+
+      for (let i = 1; i <= 5; i++) {
+        assertEquals(list.shift()!.value, i)
+      }
+    })
+
+    await t.step("should set the tail to null if there's the single item is shifted", () => {
+      assertEquals(list.length, 0)
+
+      list.push(1)
+      assertEquals(list.length, 1)
+
+      assertEquals(list.shift()!.value, 1)
+
+      assertEquals(list.tail, null)
+    })
   })
 })

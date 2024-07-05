@@ -49,4 +49,20 @@ export class SinglyLinkedList<T> {
 
     return cur
   }
+
+  shift(): Node<T> | null {
+    if (this.head === null) return null
+
+    const head = this.head;
+
+    this.head = head.next;
+
+    this.length--;
+
+    if (this.length === 0) {
+      this.tail = null
+    }
+
+    return head;
+  }
 }
