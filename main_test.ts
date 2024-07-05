@@ -205,4 +205,27 @@ Deno.test("SinglyLinkedList", async (t) => {
       assertFalse(list.set(list.length, 100))
     })
   })
+
+  await t.step("should be able to insert an item by position", async (t) => {
+    const list = new SinglyLinkedList()
+
+
+    assert(list.insert(0, 1))
+    assertEquals(list.get(0)!.value, 1)
+
+    assert(list.insert(0, 0))
+    assertEquals(list.get(0)!.value, 0)
+
+    assert(list.insert(1, 2))
+    assertEquals(list.get(1)!.value, 2)
+
+    assert(list.insert(2, 3))
+    assertEquals(list.get(2)!.value, 3)
+
+    await t.step("should return false if the position is less than zero", () => {
+      assertFalse(list.insert(-1, 10))
+      assertFalse(list.insert(-10, 10))
+      assertFalse(list.insert(-100, 10))
+    })
+  })
 })

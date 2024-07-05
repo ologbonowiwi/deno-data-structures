@@ -108,4 +108,28 @@ export class SinglyLinkedList<T> {
 
     return true
   }
+
+  insert(position: number, value: T): boolean {
+    if (position < 0 || position > this.length) return false
+
+    if (position === 0) {
+      this.unshift(value)
+
+      return true
+    } else if (position === this.length) {
+      this.push(value)
+
+      return true
+    }
+
+    const predecessor = this.get(position - 1);
+    const node = new Node(value);
+
+    // inserts the node between the predecessor and the next item
+    node.next = predecessor!.next
+    predecessor!.next = node
+
+    this.length++
+    return true
+  }
 }
