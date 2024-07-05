@@ -266,4 +266,22 @@ Deno.test("SinglyLinkedList", async (t) => {
       })
     })
   })
+
+  await t.step("should be able to reverse a list", () => {
+    const list = new SinglyLinkedList()
+
+    list.push(1)
+    list.push(2)
+    list.push(3)
+    list.push(4)
+    list.push(5)
+
+    list.reverse()
+
+    assertEquals(list.get(0)!.value, 5)
+    assertEquals(list.get(1)!.value, 4)
+    assertEquals(list.get(2)!.value, 3)
+    assertEquals(list.get(3)!.value, 2)
+    assertEquals(list.get(4)!.value, 1)
+  })
 })

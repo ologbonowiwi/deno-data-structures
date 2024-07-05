@@ -148,4 +148,24 @@ export class SinglyLinkedList<T> {
     this.length--
     return removed
   }
+
+  reverse(): ThisType<T> {
+    let node = this.head
+
+    this.tail = node
+
+    let next = null
+    let prev = null
+
+    for (let i = 0; i < this.length; i++) {
+      next = node!.next
+      node!.next = prev
+      prev = node
+      node = next
+    }
+
+    this.head = prev
+
+    return this
+  }
 }
