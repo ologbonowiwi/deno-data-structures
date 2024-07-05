@@ -9,7 +9,7 @@ export class SinglyLinkedList<T> {
   tail: Node<T> | null = null;
   length = 0;
 
-  unshift(value: T) {
+  unshift(value: T): ThisType<T> {
     this.length++
 
     const node = new Node(value);
@@ -22,9 +22,11 @@ export class SinglyLinkedList<T> {
       node.next = this.head
       this.head = node
     }
+
+    return this
   }
 
-  push(value: T) {
+  push(value: T): ThisType<T> {
     this.length++
     const node = new Node(value);
 
@@ -39,6 +41,8 @@ export class SinglyLinkedList<T> {
       // updates the current tail (the old tail will be the predecessor of the current one)
       this.tail = node;
     }
+
+    return this
   }
 
   pop(): Node<T> | null {

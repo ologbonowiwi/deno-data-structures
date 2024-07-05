@@ -53,17 +53,21 @@ Deno.test("SinglyLinkedList", async (t) => {
 
   await t.step("should be able to push values", () => {
     const list = new SinglyLinkedList<number | string>()
-    list.push(1);
+    assertEquals(list.push(1), list);
     assertEquals(list.head!.value, 1)
     assertEquals(list.tail!.value, 1)
     assertEquals(list.length, 1)
-    list.push(2)
+
+    assertEquals(list.push(2), list)
     assertEquals(list.tail!.value, 2)
     assertEquals(list.length, 2)
-    list.push(3)
+    
+    assertEquals(list.push(3), list)
     assertEquals(list.tail!.value, 3)
     assertEquals(list.length, 3)
-    list.push("yep")
+    
+
+    assertEquals(list.push("yep"), list)
     assertEquals(list.tail!.value, "yep")
     assertEquals(list.length, 4)
   });
@@ -89,7 +93,6 @@ Deno.test("SinglyLinkedList", async (t) => {
       await t.step("should be able to pop recursively", () => {
         assertEquals(list.pop()!.value, 2)
         assertEquals(list.pop()!.value, 1)
-        console.log("🚀 ~ awaitt.step ~ list:", list)
       })
     });
   });
@@ -125,17 +128,20 @@ Deno.test("SinglyLinkedList", async (t) => {
 
   await t.step("should be able to unshift values", () => {
     const list = new SinglyLinkedList<number | string>()
-    list.unshift(1);
+    assertEquals(list.unshift(1), list);
     assertEquals(list.head!.value, 1)
     assertEquals(list.tail!.value, 1)
     assertEquals(list.length, 1)
-    list.unshift(2)
+
+    assertEquals(list.unshift(2), list)
     assertEquals(list.head!.value, 2)
     assertEquals(list.length, 2)
-    list.unshift(3)
+
+    assertEquals(list.unshift(3), list)
     assertEquals(list.head!.value, 3)
     assertEquals(list.length, 3)
-    list.unshift("yep")
+
+    assertEquals(list.unshift("yep"), list)
     assertEquals(list.head!.value, "yep")
     assertEquals(list.length, 4)
   })
