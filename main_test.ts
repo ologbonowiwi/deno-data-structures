@@ -67,4 +67,30 @@ Deno.test("SinglyLinkedList", async (t) => {
     assertEquals(list.tail!.value, "yep")
     assertEquals(list.length, 4)
   });
+
+  await t.step("should be able to pop values", async (t) => {
+    const list = new SinglyLinkedList<number>()
+
+    await t.step("should return null if the list is empty", () => {
+      assertEquals(list.pop(), null)
+    })
+
+    await t.step("should return the last item added to the list", async (t) => {
+      list.push(1)
+      list.push(2)
+      list.push(3)
+
+      assertEquals(list.pop()!.value, 3)
+
+      await t.step("list length should decrease", () => {
+        assertEquals(list.length, 2)
+      })
+
+      await t.step("should be able to pop recursively", () => {
+        assertEquals(list.pop()!.value, 2)
+        assertEquals(list.pop()!.value, 1)
+        console.log("🚀 ~ awaitt.step ~ list:", list)
+      })
+    });
+  })
 })

@@ -25,4 +25,28 @@ export class SinglyLinkedList<T> {
       this.tail = node;
     }
   }
+
+  pop(): Node<T> | null {
+    if (this.head === null) return null;
+
+    let cur = this.head;
+    let tail = cur;
+
+    while (cur.next) {
+      tail = cur;
+      cur = cur.next;
+    }
+
+    tail.next = null;
+    this.tail = tail;
+
+    this.length--;
+
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return cur
+  }
 }
