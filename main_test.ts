@@ -122,4 +122,21 @@ Deno.test("SinglyLinkedList", async (t) => {
       assertEquals(list.tail, null)
     })
   })
+
+  await t.step("should be able to unshift values", () => {
+    const list = new SinglyLinkedList<number | string>()
+    list.unshift(1);
+    assertEquals(list.head!.value, 1)
+    assertEquals(list.tail!.value, 1)
+    assertEquals(list.length, 1)
+    list.unshift(2)
+    assertEquals(list.head!.value, 2)
+    assertEquals(list.length, 2)
+    list.unshift(3)
+    assertEquals(list.head!.value, 3)
+    assertEquals(list.length, 3)
+    list.unshift("yep")
+    assertEquals(list.head!.value, "yep")
+    assertEquals(list.length, 4)
+  })
 })

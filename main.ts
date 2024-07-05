@@ -9,6 +9,21 @@ export class SinglyLinkedList<T> {
   tail: Node<T> | null = null;
   length = 0;
 
+  unshift(value: T) {
+    this.length++
+
+    const node = new Node(value);
+
+    // when the list is empty
+    if (this.head === null) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      node.next = this.head
+      this.head = node
+    }
+  }
+
   push(value: T) {
     this.length++
     const node = new Node(value);
@@ -18,7 +33,7 @@ export class SinglyLinkedList<T> {
       this.head = node;
       this.tail = this.head;
     } else {
-      // sets the node as next for the tail
+      // sets the node as next for the current tail (soon to be the old one)
       this.tail!.next = node;
 
       // updates the current tail (the old tail will be the predecessor of the current one)
