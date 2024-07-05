@@ -228,4 +228,42 @@ Deno.test("SinglyLinkedList", async (t) => {
       assertFalse(list.insert(-100, 10))
     })
   })
+
+  await t.step("should be able to remove an item by position", async (t) => {
+    const list = new SinglyLinkedList()
+
+    list.push(1)
+    list.push(2)
+    list.push(3)
+    list.push(4)
+    list.push(5)
+
+    assertEquals(list.remove(4)!.value, 5)
+    assertEquals(list.remove(0)!.value, 1)
+
+    // restoring the list to its original state
+    list.unshift(1)
+    list.push(5)
+
+    assertEquals(list.remove(2)!.value, 3)
+
+    await t.step("should return null", async (t) => {
+      const list = new SinglyLinkedList()
+
+      await t.step("if the position is less than zero", () => {
+        assertEquals(list.remove(-1), null)
+        assertEquals(list.remove(-10), null)
+        assertEquals(list.remove(-100), null)
+        assertEquals(list.remove(-1000), null)
+      })
+
+      await t.step("if the position is greater than the length", () => {
+        list.push(1)
+        list.push(2)
+        list.push(3)
+
+        assertEquals(list.remove(list.length + 1), null )
+      })
+    })
+  })
 })

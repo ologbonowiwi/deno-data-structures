@@ -132,4 +132,20 @@ export class SinglyLinkedList<T> {
     this.length++
     return true
   }
+
+  remove(position: number): Node<T> | null {
+    if (position < 0 || position >= this.length) return null
+
+    if (position === 0) return this.shift()
+    if (position === this.length - 1) return this.pop()
+
+    const predecessor = this.get(position - 1)
+
+    const removed = predecessor!.next
+
+    predecessor!.next = removed!.next
+    
+    this.length--
+    return removed
+  }
 }
