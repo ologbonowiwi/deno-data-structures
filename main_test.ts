@@ -145,4 +145,41 @@ Deno.test("SinglyLinkedList", async (t) => {
     assertEquals(list.head!.value, "yep")
     assertEquals(list.length, 4)
   })
+
+  await t.step("should be able to get an item by it's position", async (t) => {
+    const list = new SinglyLinkedList<number>();
+
+    list.push(1)
+    list.push(2)
+    list.push(3)
+
+    assertEquals(list.get(0)!.value, 1)
+    assertEquals(list.get(1)!.value, 2)
+    assertEquals(list.get(2)!.value, 3)
+
+    await t.step("should return null", async (t) => {
+      const list = new SinglyLinkedList<number>();
+
+      await t.step("if the list is empty", () => {
+        assertEquals(list.get(0), null)
+        assertEquals(list.get(10), null)
+        assertEquals(list.get(100), null)
+        assertEquals(list.get(1000), null)
+      })
+
+      await t.step("if the index is less than zero", () => {
+        assertEquals(list.get(-1), null)
+        assertEquals(list.get(-10), null)
+        assertEquals(list.get(-100), null)
+        assertEquals(list.get(-1000), null)
+      })
+
+      await t.step("if the index is higher than the list length", () => {
+        list.push(1)
+        list.push(10)
+
+        assertEquals(list.get(3), null)
+      })
+    })
+  })
 })

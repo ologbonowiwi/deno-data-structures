@@ -84,4 +84,18 @@ export class SinglyLinkedList<T> {
 
     return head;
   }
+
+  get(position: number): Node<T> | null {
+    if (position < 0 || this.head === null || position > this.length) return null
+
+    let cur = this.head;
+    let counter = 0;
+
+    while (counter < position) {
+      cur = cur.next!
+      counter++
+    }
+
+    return cur
+  }
 }
