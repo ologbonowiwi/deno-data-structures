@@ -50,4 +50,21 @@ Deno.test("SinglyLinkedList", async (t) => {
     const list = new SinglyLinkedList()
     assertNotEquals(list.head, undefined)
   });
+
+  await t.step("should be able to push values", () => {
+    const list = new SinglyLinkedList<number | string>()
+    list.push(1);
+    assertEquals(list.head!.value, 1)
+    assertEquals(list.tail!.value, 1)
+    assertEquals(list.length, 1)
+    list.push(2)
+    assertEquals(list.tail!.value, 2)
+    assertEquals(list.length, 2)
+    list.push(3)
+    assertEquals(list.tail!.value, 3)
+    assertEquals(list.length, 3)
+    list.push("yep")
+    assertEquals(list.tail!.value, "yep")
+    assertEquals(list.length, 4)
+  });
 })
