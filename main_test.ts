@@ -1,5 +1,5 @@
 import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
-import { Node } from "./main.ts";
+import { Node, SinglyLinkedList } from "./main.ts";
 
 Deno.test("Node", async (t) => {
   await t.step("should be defined", () => {
@@ -39,4 +39,15 @@ Deno.test("Node", async (t) => {
       }
     })
   })
+})
+
+Deno.test("SinglyLinkedList", async (t) => {
+  await t.step("should be defined", () => {
+    assertExists(SinglyLinkedList)
+  });
+
+  await t.step("should have a head", () => {
+    const list = new SinglyLinkedList()
+    assertNotEquals(list.head, undefined)
+  });
 })
