@@ -284,4 +284,23 @@ Deno.test("SinglyLinkedList", async (t) => {
     assertEquals(list.get(3)!.value, 2)
     assertEquals(list.get(4)!.value, 1)
   })
+
+  await t.step("should be able to search on a list", async (t) => {
+    const list = new SinglyLinkedList();
+
+    list.push(1)
+    list.push(2)
+    list.push(3)
+    list.push(4)
+    list.push(5)
+
+    assertEquals(list.search(5), 4)
+    assertEquals(list.search(3), 2)
+
+    await t.step("should return -1 if value is not found", () => {
+      assertEquals(list.search(10), -1)
+      assertEquals(list.search(100), -1)
+      assertEquals(list.search(-500), -1)
+    })
+  })
 })

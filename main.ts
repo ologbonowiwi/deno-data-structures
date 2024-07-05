@@ -26,6 +26,20 @@ export class SinglyLinkedList<T> {
     return this
   }
 
+  search(value: T): number {
+    let cur = this.head
+    let i = 0
+
+    while (i < this.length) {
+      if (cur!.value === value) return i
+
+      cur = cur!.next
+      i++
+    }
+
+    return -1
+  }
+
   push(value: T): ThisType<T> {
     this.length++
     const node = new Node(value);
