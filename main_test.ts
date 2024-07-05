@@ -1,4 +1,4 @@
-import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
+import { assert, assertEquals, assertExists, assertFalse, assertNotEquals } from "jsr:@std/assert";
 import { Node, SinglyLinkedList } from "./main.ts";
 
 Deno.test("Node", async (t) => {
@@ -157,6 +157,10 @@ Deno.test("SinglyLinkedList", async (t) => {
     assertEquals(list.get(1)!.value, 2)
     assertEquals(list.get(2)!.value, 3)
 
+    await t.step("should return the tail for (list.length - 1)", () => {
+      assertEquals(list.get(list.length - 1), list.tail)
+    })
+
     await t.step("should return null", async (t) => {
       const list = new SinglyLinkedList<number>();
 
@@ -174,12 +178,31 @@ Deno.test("SinglyLinkedList", async (t) => {
         assertEquals(list.get(-1000), null)
       })
 
-      await t.step("if the index is higher than the list length", () => {
+      await t.step("if the index is higher or equal than the list length", () => {
         list.push(1)
         list.push(10)
 
         assertEquals(list.get(3), null)
+        assertEquals(list.get(list.length), null)
       })
+    })
+  })
+
+  await t.step("should be able to set an item by position", async (t) => {
+    const list = new SinglyLinkedList();
+
+    list.push(1)
+    list.push(2)
+    list.push(1)
+    list.push(4)
+    list.push(5)
+
+    assert(list.set(2, 3))
+
+    assertEquals(list.get(2)!.value, 3)
+
+    await t.step("should return false if the position isn't found", () => {
+      assertFalse(list.set(list.length, 100))
     })
   })
 })

@@ -86,7 +86,7 @@ export class SinglyLinkedList<T> {
   }
 
   get(position: number): Node<T> | null {
-    if (position < 0 || this.head === null || position > this.length) return null
+    if (position < 0 || this.head === null || position >= this.length) return null
 
     let cur = this.head;
     let counter = 0;
@@ -97,5 +97,15 @@ export class SinglyLinkedList<T> {
     }
 
     return cur
+  }
+
+  set(position: number, value: T): boolean {
+    const node = this.get(position)
+
+    if (node === null) return false
+
+    node.value = value
+
+    return true
   }
 }
